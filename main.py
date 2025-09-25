@@ -7,16 +7,17 @@ def meny(): #Funktion som skriver ut och hanterar vad användaren väljer
     lista = m([])
 
     print("Välkommen till din Todolista")
-    print(" 1. Lägg till i listan\n 2. Ta bort från listan\n 3. Visa listan\n 4. Spara listan\n 5. Avsluta programmet")
-    val = input(">>>")
-
     while True:
+        print(" 1. Lägg till i listan\n 2. Ta bort från listan\n 3. Visa listan\n 4. Spara listan\n 5. Avsluta programmet")
+        val = input(">")
+
+    
         if val == "1":
             lista.lägg_till_uppgifter()
         elif val == "2":
-            print("Välj vad du vill ta bort från listan")
+            lista.ta_bort_uppgifter()
         elif val == "3":
-            m.visa_lista(m.uppgifter)
+            lista.visa_lista()
         elif val == "4":
             pass
             #sparar litan
