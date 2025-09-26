@@ -1,10 +1,12 @@
 #Todo app
-from meny_val import Meny as m #importerar meny_val där jag har funktioner för menyn
+from meny_val import Meny as m #Importerar funktioner för menyn
+from spara import Filhantering #Importerar filhantering
 
-
+uppgifter = [] #Skapar en tom lista
 
 def meny(): #Funktion som skriver ut och hanterar vad användaren väljer
-    lista = m([])
+    lista = m(uppgifter)
+    fil = Filhantering()
 
     print("Välkommen till din Todolista")
     while True:
@@ -19,8 +21,8 @@ def meny(): #Funktion som skriver ut och hanterar vad användaren väljer
         elif val == "3":
             lista.visa_lista()
         elif val == "4":
-            pass
-            #sparar litan
+            fil.spara_fil(lista.uppgifter)
+            print("Listan sparad!")
         elif val == "5":
             print("Programmet avslutas")
             exit()

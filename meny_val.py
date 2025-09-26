@@ -3,7 +3,7 @@ class Meny:
 
     
 
-    def __init__(self, uppgifter: list):
+    def __init__(self, uppgifter: dict):
         self.uppgifter = uppgifter
 
     def lägg_till_uppgifter(self):#Ber användaren att skriva vad han vill lägga in i listan och lägger till i listan
@@ -40,11 +40,12 @@ class Meny:
     def ta_bort_uppgifter(self):#Skriver först ut allt som finns i listan och frågar sedan användaren vad i listan han vill ta bort
         self.visa_lista()
         print("Vad vill du ta bort i listan")
-        uppgift = input(">")
+        ta_bort = input(">").lower()
         for uppgift in self.uppgifter:
-            if uppgift["text"] == uppgift:
+            if uppgift["text"] == ta_bort:
                 self.uppgifter.remove(uppgift)
-                print(f"{uppgift} borttagen ur listan")
+                print(f"{uppgift['text']} borttagen ur listan")
+                break
         else:
             print("Det du skrev finns inte med i listan")
 
