@@ -2,22 +2,27 @@
 from meny_val import Meny as m #Importerar funktioner för menyn
 from spara import Filhantering #Importerar filhantering
 
-uppgifter = [] #Skapar en tom lista
 
-def meny(): #Funktion som skriver ut och hanterar vad användaren väljer
-    lista = m(uppgifter)
+
+def meny(): 
+    """Funktion som skriver ut och hanterar vad användaren väljer"""
+    
     fil = Filhantering()
+    uppgifter: list = fil.ladda_fil()
+    lista: list = m(uppgifter)
 
     print("Välkommen till din Todolista")
-    while True:
+    while True: #Loopar igenom menyn tills användaren väljer att avsluta programmet
+        print("-----Meny-----")
         print(" 1. Lägg till i listan\n 2. Ta bort från listan\n 3. Visa listan\n 4. Spara listan\n 5. Avsluta programmet")
-        val = input(">")
+        val: str = input(">")
 
     
         if val == "1":
             lista.lägg_till_uppgifter()
         elif val == "2":
             lista.ta_bort_uppgifter()
+            fil.spara_fil(lista.uppgifter) # Sparar listan efter att användaren har tagit bort något i den
         elif val == "3":
             lista.visa_lista()
         elif val == "4":

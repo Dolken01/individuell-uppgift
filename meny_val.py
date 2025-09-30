@@ -1,46 +1,54 @@
 from datetime import datetime #importerar datetime för att kunna få ut vilken dag användaren lägger in saker i listan
+from spara import Filhantering
 class Meny:
 
-    
+    fil = Filhantering()
 
-    def __init__(self, uppgifter: dict):
-        self.uppgifter = uppgifter
+    def __init__(self, uppgifter: list):
+        self.uppgifter: list = uppgifter
 
-    def lägg_till_uppgifter(self):#Ber användaren att skriva vad han vill lägga in i listan och lägger till i listan
-        while True: #Ber användaren att skriva vad han vill lägga in i listan och lägger till i listan
+    def lägg_till_uppgifter(self) -> None:
+        """Ber användaren att skriva vad han vill lägga in i listan och lägger till i listan"""
+        while True: 
 
-            datum = datetime.now().strftime("%Y/%m/%d") #datetime.now returnerar datum och tid. strftime returnerar en string för datum %Y = 0000 %m = 00 %d= 00
+            datum: str = datetime.now().strftime("%Y/%m/%d") # Datetime.now returnerar datum och tid. strftime returnerar en string för datum %Y = 0000 %m = 00 %d= 00
 
-            uppgift_text = input("Skriv uppgiften du vill lägga till: ")
+            uppgift_text: str = input("Skriv uppgiften du vill lägga till: ") # Ber användaren att skriva ner en uppgift till listan
 
-            uppgift = {"text": uppgift_text, "datum": datum}
+            uppgift: dict[str, str] = {"text": uppgift_text, "datum": datum} # Skapar en dictionary med nycklar: text och datum
 
-            self.uppgifter.append(uppgift)
+            self.uppgifter.append(uppgift) # Lägger till uppgiften i listan
 
-            print(f"{uppgift_text} tillagd! (Datum: {datum})")
+            print(f"{uppgift_text} tillagd! (Datum: {datum})") # Bekräftar användaren att uppgiften är tillagd
             
             while True:
-                print("Vill du lägga till flera saker i listan? y=ja n=nej")
+                print("Vill du lägga till flera saker i listan? y=ja n=nej") # Frågar användaren om han vill lägga till mer i listan
                 val = input(">").lower() #Använder lower om det skulle vara så att användaren skriver Y/N istället för y/n
                 if val == "y":#Om användaren väljer "y" hoppar den ut ur loopen och ber användaren att skriva in en till uppgift
                     break
                 elif val == "n": #Om användaren väljer "n" så går den tillbaka till menyn
                     print("Går tillbaka till menyn")
                     return
-                elif val != "y" and val != "n":
+                elif val != "y" and val != "n": # Felhantering om användaren skulle skriva något annat
                     print("Du måste svara ja eller nej. y/n")
 
 
-    def visa_lista(self): #Skriver ut vad som finns i listan
-        print("Att göra: ")
+    def visa_lista(self) -> None:
+        """Skriver ut vad som finns i listan"""
+        if not self.uppgifter: # Kollar om listan är tom
+            print("Listan är tom. Vill du lägga till något i listan? y/n")
+            return
+        print("Att göra: ") #Skriver ut vad som finns i listan
         for uppgift in self.uppgifter:
-            print(f' {uppgift["text"]} ("tillagd: {uppgift["datum"]})')
+            print(f' {uppgift["text"]} (Tillagd: {uppgift["datum"]})')
+            
 
 
-    def ta_bort_uppgifter(self):#Skriver först ut allt som finns i listan och frågar sedan användaren vad i listan han vill ta bort
-        self.visa_lista()
-        print("Vad vill du ta bort i listan")
-        ta_bort = input(">").lower()
+    def ta_bort_uppgifter(self) -> None:
+        """Skriver först ut allt som finns i listan och frågar sedan användaren vad i listan han vill ta bort"""
+        self.visa_lista() # Visar användaren vad som finns i listan
+        print("Vad vill du ta bort i listan") # Ber avnvändaren att skriva vad han vill ta bort
+        ta_bort: str = input(">").lower()
         for uppgift in self.uppgifter:
             if uppgift["text"] == ta_bort:
                 self.uppgifter.remove(uppgift)
