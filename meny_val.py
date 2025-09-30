@@ -1,5 +1,9 @@
 from datetime import datetime #importerar datetime för att kunna få ut vilken dag användaren lägger in saker i listan
 from spara import Filhantering
+
+röd = "\033[91m" #ANSI-kod för att göra text röd
+grön = "\033[92m" #ANSI-kod för att göra text grön
+reset = "\033[0m" #ANSI-kod för att texten ska gå tillbaka till vit igen
 class Meny:
 
     fil = Filhantering()
@@ -19,11 +23,11 @@ class Meny:
 
             self.uppgifter.append(uppgift) # Lägger till uppgiften i listan
 
-            print(f"{uppgift_text} tillagd! (Datum: {datum})") # Bekräftar användaren att uppgiften är tillagd
+            print(f"{grön}{uppgift_text} tillagd! (Datum: {datum}){reset}") # Bekräftar användaren att uppgiften är tillagd
             
             while True:
-                print("Vill du lägga till flera saker i listan? y=ja n=nej") # Frågar användaren om han vill lägga till mer i listan
-                val = input(">").lower() #Använder lower om det skulle vara så att användaren skriver Y/N istället för y/n
+                print(f"Vill du lägga till flera saker i listan? {grön}y=ja{reset} {röd}n=nej{reset}") # Frågar användaren om han vill lägga till mer i listan
+                val = input(f"{grön}>{reset}").lower() #Använder lower om det skulle vara så att användaren skriver Y/N istället för y/n
                 if val == "y":#Om användaren väljer "y" hoppar den ut ur loopen och ber användaren att skriva in en till uppgift
                     break
                 elif val == "n": #Om användaren väljer "n" så går den tillbaka till menyn
@@ -36,7 +40,7 @@ class Meny:
     def visa_lista(self) -> None:
         """Skriver ut vad som finns i listan"""
         if not self.uppgifter: # Kollar om listan är tom
-            print("Listan är tom. Vill du lägga till något i listan? y/n")
+            print("Listan är tom. Du har inget att göra idag!\n Går tillbaka till menyn")
             return
         print("Att göra: ") #Skriver ut vad som finns i listan
         for uppgift in self.uppgifter:
@@ -48,11 +52,11 @@ class Meny:
         """Skriver först ut allt som finns i listan och frågar sedan användaren vad i listan han vill ta bort"""
         self.visa_lista() # Visar användaren vad som finns i listan
         print("Vad vill du ta bort i listan") # Ber avnvändaren att skriva vad han vill ta bort
-        ta_bort: str = input(">").lower()
+        ta_bort: str = input(f"{grön}>{reset}").lower()
         for uppgift in self.uppgifter:
             if uppgift["text"] == ta_bort:
                 self.uppgifter.remove(uppgift)
-                print(f"{uppgift['text']} borttagen ur listan")
+                print(f"{röd}{uppgift['text']} borttagen ur listan{reset}")
                 break
         else:
             print("Det du skrev finns inte med i listan")
