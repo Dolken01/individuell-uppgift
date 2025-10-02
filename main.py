@@ -10,6 +10,9 @@ reset = "\033[0m" #ANSI-kod för att texten ska gå tillbaka till vit igen
 
 def meny(): 
     """Funktion som skriver ut och hanterar vad användaren väljer"""
+    def __init__(self, uppgifter: list, fil: Filhantering):
+        self.uppgifter = uppgifter
+        self.fil = fil
     
     fil = Filhantering()
     uppgifter: list = fil.ladda_fil()
@@ -28,6 +31,7 @@ def meny():
     
         if val == "1":
             lista.lägg_till_uppgifter()
+            fil.spara_fil(lista.uppgifter)# Sparar listan efter att användaren har lagt till något i den
         elif val == "2":
             lista.ta_bort_uppgifter()
             fil.spara_fil(lista.uppgifter) # Sparar listan efter att användaren har tagit bort något i den
@@ -41,7 +45,6 @@ def meny():
             exit()
         else:
             print(f"{röd}Du måste välja mellan valen på menyn{reset}")
-            exit()
         
 
 

@@ -14,12 +14,12 @@ class Meny:
 
     def lägg_till_uppgifter(self) -> None:
         """Ber användaren att skriva vad han vill lägga in i listan och lägger till i listan"""
-        while True: 
+        while True:  
 
             datum: str = datetime.now().strftime("%Y/%m/%d") # Datetime.now returnerar datum och tid. strftime returnerar en string för datum %Y = 0000 %m = 00 %d= 00
 
             uppgift_text: str = input(f"{röd}För att gå tillbaka till menyn skriv 'avbryt'{reset}\nSkriv uppgiften du vill lägga till:").capitalize() # Ber användaren att skriva ner en uppgift till listan
-            if uppgift_text == "avbryt":
+            if uppgift_text == "Avbryt":
                 break
             uppgift: dict[str, str] = {"text": uppgift_text, "datum": datum} # Skapar en dictionary med nycklar: text och datum
 
@@ -37,6 +37,7 @@ class Meny:
                     return
                 elif val != "Y" and val != "n": # Felhantering om användaren skulle skriva något annat
                     print("Du måste svara ja eller nej. y/n")
+            
 
     def visa_lista(self) -> None:
         """Skriver ut vad som finns i listan"""
@@ -61,8 +62,8 @@ class Meny:
                 self.uppgifter.remove(uppgift)
                 print(f"{röd}{uppgift['text']} borttagen ur listan{reset}")
                 break
-            else:
-                print("Det du skrev finns inte med i listan")
+        else:
+            print("Det du skrev finns inte med i listan")
 
 
     
